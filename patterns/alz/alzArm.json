@@ -152,7 +152,7 @@
         "policyAssignmentParametersLandingZone": "[union(parameters('policyAssignmentParametersCommon'), parameters('policyAssignmentParametersLandingZone'))]",
         "policyAssignmentParametersManagement": "[union(parameters('policyAssignmentParametersCommon'), parameters('policyAssignmentParametersManagement'))]",
         "policyAssignmentParametersServiceHealth": "[union(parameters('policyAssignmentParametersCommon'), parameters('policyAssignmentParametersServiceHealth'))]",
-
+        
         // Declaring all required deployment uri's used for deployments of composite ARM templates for ESLZ
         "deploymentUris": {
             "policyDefinitionsAMBA": "[uri(deployment().properties.templateLink.uri, 'policyDefinitions/policies.json')]",
@@ -162,7 +162,7 @@
             "AMBAManagementInitiative": "[uri(deployment().properties.templateLink.uri, 'policyAssignments/DINE-ManagementAssignment.json')]",
             "AMBAServiceHealthInitiative": "[uri(deployment().properties.templateLink.uri, 'policyAssignments/DINE-ServiceHealthAssignment.json')]"
         },
-
+        
         // Declaring deterministic deployment names
         "deploymentSuffix": "[concat('-', deployment().location, '-', guid(parameters('enterpriseScaleCompanyPrefix'), parameters('currentDateTimeUtcNow')))]",
         "deploymentNames": {
@@ -193,7 +193,7 @@
         {
             // Deploying AMBA custom policies. Note: all policies should eventually be moved to built-in policies and codebase will be reduced
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2020-10-01",
+            "apiVersion": "2019-10-01",
             "name": "[variables('deploymentNames').AMBAPolicyDeploymentName]",
             "location": "[deployment().location]",
             "scope": "[concat('Microsoft.Management/managementGroups/', parameters('enterpriseScaleCompanyPrefix'))]",
@@ -215,7 +215,7 @@
             // One of Azure's untold stories.....
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2020-10-01",
-            "name": "[concat('ambaPreparingToLaunch', copyIndex())]",
+            "name": "[concat('preparingToLaunch', copyIndex())]",
             "location": "[deployment().location]",
             "scope": "[concat('Microsoft.Management/managementGroups/', parameters('enterpriseScaleCompanyPrefix'))]",
             "dependsOn": [
@@ -225,7 +225,7 @@
                 "batchSize": 1,
                 "count": "[parameters('delayCount')]",
                 "mode": "Serial",
-                "name": "ambaPolicyCompletion"
+                "name": "policyCompletion"
             },
             "properties": {
                 "mode": "Incremental",
@@ -247,7 +247,7 @@
             "scope": "[concat('Microsoft.Management/managementGroups/', parameters('connectivityManagementGroup'))]",
             "location": "[deployment().location]",
             "dependsOn": [
-                "ambaPolicyCompletion"
+                "policyCompletion"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -274,7 +274,7 @@
             "scope": "[concat('Microsoft.Management/managementGroups/', parameters('identityManagementGroup'))]",
             "location": "[deployment().location]",
             "dependsOn": [
-                "ambaPolicyCompletion"
+                "policyCompletion"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -301,7 +301,7 @@
             "scope": "[concat('Microsoft.Management/managementGroups/', parameters('LandingZoneManagementGroup'))]",
             "location": "[deployment().location]",
             "dependsOn": [
-                "ambaPolicyCompletion"
+                "policyCompletion"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -328,7 +328,7 @@
             "scope": "[concat('Microsoft.Management/managementGroups/', parameters('managementManagementGroup'))]",
             "location": "[deployment().location]",
             "dependsOn": [
-                "ambaPolicyCompletion"
+                "policyCompletion"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -355,7 +355,7 @@
             "scope": "[concat('Microsoft.Management/managementGroups/', parameters('enterpriseScaleCompanyPrefix'))]",
             "location": "[deployment().location]",
             "dependsOn": [
-                "ambaPolicyCompletion"
+                "policyCompletion"
             ],
             "properties": {
                 "mode": "Incremental",

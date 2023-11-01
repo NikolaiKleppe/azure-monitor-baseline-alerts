@@ -16,7 +16,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 0.0
-    autoMitigate: false
 - name: ResourceUtilization
   description: SU (Memory) % Utilization
   type: Metric
@@ -35,7 +34,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 80.0
-    autoMitigate: false
 - name: OutputWatermarkDelaySeconds
   description: Watermark Delay
   type: Metric
@@ -54,7 +52,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 300.0
-    autoMitigate: false
 - name: OutputEvents
   description: Output Events
   type: Metric
@@ -73,7 +70,6 @@
     operator: LessThanOrEqual
     criterionType: StaticThresholdCriterion
     threshold: 0.0
-    autoMitigate: false
 - name: ConversionErrors
   description: Data Conversion Errors
   type: Metric
@@ -92,7 +88,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 0.0
-    autoMitigate: false
 - name: InputEvents
   description: Input Events
   type: Metric
@@ -111,7 +106,6 @@
     operator: LessThanOrEqual
     criterionType: StaticThresholdCriterion
     threshold: 0.0
-    autoMitigate: false
 - name: DeserializationError
   description: Input Deserialization Errors
   type: Metric
@@ -130,7 +124,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 0.0
-    autoMitigate: false
 - name: InputEventsSourcesBacklogged
   description: Backlogged Input Events
   type: Metric
@@ -149,7 +142,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 100000.0
-    autoMitigate: false
 - name: ProcessCPUUsagePercentage
   description: CPU % Utilization
   type: Metric
@@ -168,7 +160,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 80.0
-    autoMitigate: false
 - name: AMLCalloutFailedRequests
   description: Failed Function Requests
   type: Metric
@@ -187,4 +178,3 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 0.0
-    autoMitigate: false

@@ -4,7 +4,7 @@ weight: 30
 ---
 
 {{< hint type=Important >}}
-Updating from a preview version is not supported. If you deployed a preview version, please proceed with [Moving from preview to GA](../../Moving-from-preview-to-GA) before continuing.
+Updating from a preview version is not supported. If you deployed a preview version, please proceed with [Cleaning Up Preview Version Deployment](../Cleaning-Up-Preview-Version-Deployment) before continuing.
 {{< /hint >}}
 
 ## 1. Parameter configuration
@@ -17,18 +17,11 @@ The following changes apply to all scenarios, whether you are aligned or unalign
 
 - Change the value of _enterpriseScaleCompanyPrefix_ to the management group where you wish to deploy the policies and the initiatives. This is usually the so called "pseudo root management group", e.g. in [ALZ terminology](https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups), this would be the so called "Intermediate Root Management Group" (directly beneath the "Tenant Root Group").
 - Change the value of _ALZMonitorResourceGroupName_ to the name of the resource group where the activity logs, resource health alerts, actions groups and alert processing rules will be deployed in.
+<!--
 - Change the value of _ALZMonitorResourceGroupTags_ to specify the tags to be added to said resource group.
+-->
 - Change the value of _ALZMonitorResourceGroupLocation_ to specify the location for said resource group.
-- Change the value of _ALZMonitorActionGroupEmail_ (specific to the Service Health initiative) to the email address(es) where notifications of the alerts are sent to.
-
-  {{< hint type=note >}}
-  For multiple email addresses, make sure they are entered a single string with values separated by comma. Example:
-
-    "ALZMonitorActionGroupEmail": {
-      "value": "action1@mail.com , action2@mail.com , action3@mail.com"
-      },
-  {{< /hint >}}
-
+- Change the value of _ALZMonitorActionGroupEmail_ (specific to the Service Health initiative) to the email address where notifications of the alerts are sent to.
 - If you would like to disable initiative assignments, you can change the value on one or more of the following parameters; _enableAMBAConnectivity_, _enableAMBAIdentity_, _enableAMBALandingZone_, _enableAMBAManagement_, _enableAMBAServiceHealth_ to "No".
 
 ### If you are aligned to ALZ
@@ -108,11 +101,11 @@ Note that the parameter file shown below has been truncated for brevity, compare
         "policyAssignmentParametersCommon": {
             "value": {
                 "ALZMonitorResourceGroupName": {
-                    "value": "rg-amba-monitoring-001"
+                    "value": "rg-alz-monitor"
                 },
                 "ALZMonitorResourceGroupTags": {
                     "value": {
-                        "Project": "amba-monitoring"
+                        "Project": "alz-monitor"
                     }
                 },
                 "ALZMonitorResourceGroupLocation": {
@@ -141,8 +134,6 @@ pseudoRootManagementGroup="The pseudo root management group id parenting the ide
 When running Azure CLI from PowerShell the variables have to start with a $.
 
 Above-mentioned "pseudoRootManagementGroup" variable value, being the so called "pseudo root management group id", should _coincide_ with the value of the "enterpriseScaleCompanyPrefix" parameter, as set previously within the parameter files.
-
-The location variable refers to the deployment location. Deploying to multiple regions is not necessary as the definitions and assignments are scoped to a management group and are not region specific.
 {{< /hint >}}
 
 ## 4. Deploying AMBA
@@ -153,11 +144,6 @@ Using your preferred command line tool (Windows PowerShell, Cmd, Bash or other U
 
 {{< hint type=note >}}
 This should be tested in a safe environment. If you are subsequently looking to deploy to prod environments, consider leveraging the guidance found in [Customize Policy Assignment](../Customize-Policy-Assignment), to deploy and enable alerts in a controlled manner.
-
-If you customized the policies as documented at [How to modify individual policies](./Introduction-to-deploying-the-ALZ-Pattern.md#how-to-modify-individual-policies), make sure the run the deployment command using your own repository and branch in the ***--template-uri*** parameter value. Example:
-
-    az deployment mg create --template-uri  https://raw.githubusercontent.com/***YourGithubFork***/azure-monitor-baseline-alerts/***main or branchname***/patterns/alz/alzArm.json
-     --location $location --management-group-id $pseudoRootManagementGroup --parameters .\patterns\alz\alzArm.param.json
 {{< /hint >}}
 
 ```bash

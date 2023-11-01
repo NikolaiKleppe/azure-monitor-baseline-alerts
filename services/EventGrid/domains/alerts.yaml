@@ -16,4 +16,3 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 1.0
-    autoMitigate: false

@@ -8,7 +8,7 @@
     "displayName": "Deploy Service Health Maintenance Alert",
     "description": "Policy to Deploy Service Health Maintenance Alert",
     "metadata": {
-      "version": "1.1.1",
+      "version": "1.1.0",
       "category": "Monitoring",
       "source": "https://github.com/Azure/azure-monitor-baseline-alerts/",
       "alzCloudEnvironments": [
@@ -35,7 +35,7 @@
           "displayName": "Resource Group Name",
           "description": "Resource group the alert is placed in"
         },
-        "defaultValue": "rg-amba-monitoring-001"
+        "defaultValue": "AlzMonitoring-rg"
       },
       "alertResourceGroupTags": {
         "type": "Object",
@@ -63,18 +63,6 @@
         },
         "defaultValue": "action@mail.com"
       },
-      "effect": {
-        "type": "String",
-        "metadata": {
-          "displayName": "Effect",
-          "description": "Effect of the policy"
-        },
-        "allowedValues": [
-          "deployIfNotExists",
-          "disabled"
-        ],
-        "defaultValue": "disabled"
-      },
       "MonitorDisable": {
         "type": "String",
         "metadata": {
@@ -98,7 +86,7 @@
         ]
       },
       "then": {
-        "effect": "[[parameters('effect')]",
+        "effect": "deployIfNotExists",
         "details": {
           "roleDefinitionIds": [
             "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
@@ -216,7 +204,7 @@
                             "name": "ServiceHealthPlannedMaintenance",
                             "location": "global",
                             "dependsOn": [
-                              "[[concat(subscription().Id, '/resourceGroups/', parameters('alertResourceGroupName'), '/providers/Microsoft.Insights/actionGroups/AmbaActionGr')]"
+                              "[[concat(subscription().Id, '/resourceGroups/', parameters('alertResourceGroupName'), '/providers/Microsoft.Insights/actionGroups/AlzActionGrp')]"
                             ],
                             "tags": {
                               "_deployed_by_amba": true
@@ -225,7 +213,7 @@
                               "actions": {
                                 "actionGroups": [
                                   {
-                                    "actionGroupId": "[[concat(subscription().Id, '/resourceGroups/', parameters('alertResourceGroupName'), '/providers/Microsoft.Insights/actionGroups/AmbaActionGr')]"
+                                    "actionGroupId": "[[concat(subscription().Id, '/resourceGroups/', parameters('alertResourceGroupName'), '/providers/Microsoft.Insights/actionGroups/AlzActionGrp')]"
                                   }
                                 ]
                               },
@@ -256,13 +244,13 @@
                           {
                             "type": "Microsoft.Insights/actionGroups",
                             "apiVersion": "2022-06-01",
-                            "name": "AmbaActionGr",
+                            "name": "AlzActionGrp",
                             "location": "global",
                             "tags": {
                                 "_deployed_by_amba": true
                               },
                             "properties": {
-                                "groupShortName": "AmbaActionGr",
+                                "groupShortName": "AlzActionGrp",
                                 "enabled": true,
                                 "copy": [
                                     {

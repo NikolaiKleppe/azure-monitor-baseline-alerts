@@ -21,4 +21,3 @@
       values:
       - sbsfe
     threshold: 70.0
-    autoMitigate: false

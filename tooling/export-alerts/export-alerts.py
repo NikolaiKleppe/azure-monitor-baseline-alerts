@@ -16,7 +16,7 @@ def parseArguments():
   parser.add_argument('-j', '--output-json', type=str, required=False, metavar='file', help='Output path to JSON file')
   parser.add_argument('-y', '--output-yaml', type=str, required=False, metavar='file', help='Output path to YAML file')
   parser.add_argument('-t', '--template', type=str, required=False, metavar='template', help='Path to Excel template', default='alerts-template.xlsx')
-  parser.add_argument('-s', '--export-hidden', action='store_true', help='Export alerts rules where visible is set to false')
+  parser.add_argument('-o', '--output', type=str, required=False, metavar='output', help='Path to output file', default='amba-alerts.xlsx')
   args = parser.parse_args()
 
   return args
@@ -33,7 +33,7 @@ def outputToYamlFile(data, filename):
   with open(filename, "w") as f:
       yaml.dump(data, f, indent=2)
 
-def readYamlData(dir, export_hidden):
+def readYamlData(dir):
 
   # Walk the directory tree and load all the alerts.yaml files
   # into a list of dictionaries using the folder path as the structure
@@ -57,8 +57,6 @@ def readYamlData(dir, export_hidden):
 
           alerts = yaml.safe_load(f)
           for alert in alerts:
-            if (not export_hidden) and ('visible' in alert) and (alert['visible'] == False):
-              continue
             data[resouceCategory][resourceType].append(alert)
 
   return data
@@ -145,15 +143,19 @@ def main():
 
   args = parseArguments()
 
-  data = readYamlData(args.path, args.export_hidden)
 
-  if args.output_xls:
+  templateFile = '/tooling/export-alerts/alerts-template.xlsx'
+  outputFile= '/services/amba-alerts.xlsx'
+
+  data = readYamlData(args.path)
+
+  if len(args.output_xls) > 0:
     exportToXls(data, args.template, args.output_xls)
 
-  if args.output_json:
+  if len(args.output_json) > 0:
     outputToJsonFile(data, args.output_json)
 
-  if args.output_yaml:
+  if len(args.output_yaml) > 0:
     outputToYamlFile(data, args.output_yaml)
 
 if __name__ == '__main__':

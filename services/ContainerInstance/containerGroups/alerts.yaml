@@ -16,7 +16,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 2700000000.0
-    autoMitigate: false
 - name: CpuUsage
   description: CPU usage on all cores in millicores.
   type: Metric
@@ -41,9 +40,8 @@
       - '*'
     failingPeriods:
       numberOfEvaluationPeriods: 4
-      minFailingPeriodsToAlert: minFailingPeriodsToAlert
+      minFailingPeroidsToAlert: minFailingPeroidsToAlert
     alertSensitivity: Low
-    autoMitigate: false
 - name: NetworkBytesReceivedPerSecond
   description: The network bytes received per second.
   type: Metric
@@ -63,9 +61,8 @@
     criterionType: DynamicThresholdCriterion
     failingPeriods:
       numberOfEvaluationPeriods: 4
-      minFailingPeriodsToAlert: minFailingPeriodsToAlert
+      minFailingPeroidsToAlert: minFailingPeroidsToAlert
     alertSensitivity: Low
-    autoMitigate: false
 - name: NetworkBytesTransmittedPerSecond
   description: The network bytes transmitted per second.
   type: Metric
@@ -85,6 +82,5 @@
     criterionType: DynamicThresholdCriterion
     failingPeriods:
       numberOfEvaluationPeriods: 4
-      minFailingPeriodsToAlert: minFailingPeriodsToAlert
+      minFailingPeroidsToAlert: minFailingPeroidsToAlert
     alertSensitivity: Low
-    autoMitigate: false

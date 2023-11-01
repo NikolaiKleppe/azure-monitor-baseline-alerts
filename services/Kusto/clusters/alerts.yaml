@@ -18,7 +18,6 @@
     operator: GreaterThanOrEqual
     criterionType: StaticThresholdCriterion
     threshold: 1800.0
-    autoMitigate: false
 - name: KeepAlive
   description: Sanity check indicates the cluster responds to queries
   type: Metric
@@ -37,7 +36,6 @@
     operator: LessThanOrEqual
     criterionType: StaticThresholdCriterion
     threshold: 0.5
-    autoMitigate: false
 - name: CPU
   description: CPU utilization level
   type: Metric
@@ -56,7 +54,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 70.0
-    autoMitigate: false
 - name: BlobsDropped
   description: Number of blobs permanently rejected by a component.
   type: Metric
@@ -75,7 +72,6 @@
     operator: GreaterThanOrEqual
     criterionType: StaticThresholdCriterion
     threshold: 100.0
-    autoMitigate: false
 - name: IngestionResult
   description: Total number of sources that either failed or succeeded to be ingested.
     Splitting the metric by status, you can get detailed information about the status
@@ -101,7 +97,6 @@
       values:
       - permanent
     threshold: 300.0
-    autoMitigate: false
 - name: CacheUtilization
   description: Utilization level in the cluster scope. The metric is deprecated and
     presented for backward compatibility only, you should use the 'Cache utilization
@@ -122,7 +117,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 95.0
-    autoMitigate: false
 - name: QueryResult
   description: Total number of queries.
   type: Metric
@@ -146,4 +140,3 @@
       values:
       - completed
     threshold: 100.0
-    autoMitigate: false

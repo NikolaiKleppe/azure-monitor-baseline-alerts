@@ -17,7 +17,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 95.0
-    autoMitigate: false
 - name: node_memory_working_set_percentage
   description: Container working set memory used in percent
   type: Metric
@@ -36,7 +35,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 100.0
-    autoMitigate: false
 - name: node_disk_usage_percentage
   description: Disk space used in percent by device
   type: Metric
@@ -55,7 +53,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 80.0
-    autoMitigate: false
 - name: node_memory_rss_percentage
   description: Container RSS memory used in percent
   type: Metric
@@ -74,7 +71,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 80.0
-    autoMitigate: false
 - name: kube_pod_status_phase
   description: Number of pods by phase
   type: Metric
@@ -98,7 +94,6 @@
       values:
       - failed
     threshold: 0.0
-    autoMitigate: false
 - name: cluster_autoscaler_cluster_safe_to_autoscale
   description: Determines whether or not cluster autoscaler will take action on the
     cluster
@@ -118,7 +113,6 @@
     operator: LessThan
     criterionType: StaticThresholdCriterion
     threshold: 1.0
-    autoMitigate: false
 - name: kube_node_status_condition
   description: Statuses for various node conditions
   type: Metric
@@ -142,7 +136,6 @@
       values:
       - notready
     threshold: 0.0
-    autoMitigate: false
 - name: cluster_autoscaler_unschedulable_pods_count
   description: Number of pods that are currently unschedulable in the cluster
   type: Metric
@@ -161,7 +154,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 0.0
-    autoMitigate: false
 - name: kube_pod_status_ready
   description: Number of pods in Ready state
   type: Metric
@@ -180,7 +172,6 @@
     operator: LessThan
     criterionType: StaticThresholdCriterion
     threshold: 1.0
-    autoMitigate: false
 - name: kube_node_status_allocatable_memory_bytes
   description: Total amount of available memory in a managed cluster
   type: Metric
@@ -199,7 +190,6 @@
     operator: LessThan
     criterionType: StaticThresholdCriterion
     threshold: 1000000000.0
-    autoMitigate: false
 - name: kube_node_status_allocatable_cpu_cores
   description: Total number of available cpu cores in a managed cluster
   type: Metric
@@ -218,4 +208,3 @@
     operator: LessThan
     criterionType: StaticThresholdCriterion
     threshold: 2.0
-    autoMitigate: false

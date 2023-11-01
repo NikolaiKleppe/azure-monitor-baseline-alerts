@@ -16,7 +16,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 90.0
-    autoMitigate: false
 - name: cpu_percent
   description: CPU percent
   type: Metric
@@ -35,7 +34,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 90.0
-    autoMitigate: false
 - name: active_connections
   description: Active Connections
   type: Metric
@@ -54,7 +52,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 687.2
-    autoMitigate: false
 - name: memory_percent
   description: Memory percent
   type: Metric
@@ -73,7 +70,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 90.0
-    autoMitigate: false
 - name: connections_failed
   description: Failed Connections
   type: Metric
@@ -92,7 +88,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 5.0
-    autoMitigate: false
 - name: iops
   description: IO Operations per second
   type: Metric
@@ -111,7 +106,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 450.0
-    autoMitigate: false
 - name: disk_iops_consumed_percentage
   description: Percentage of disk I/Os consumed per minute
   type: Metric
@@ -130,7 +124,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 80.0
-    autoMitigate: false
 - name: is_db_alive
   description: Indicates if the database is up or not
   type: Metric
@@ -149,7 +142,6 @@
     operator: LessThan
     criterionType: StaticThresholdCriterion
     threshold: 1.0
-    autoMitigate: false
 - name: storage_free
   description: Storage Free
   type: Metric
@@ -168,4 +160,3 @@
     operator: LessThan
     criterionType: StaticThresholdCriterion
     threshold: 10737418240.0
-    autoMitigate: false
