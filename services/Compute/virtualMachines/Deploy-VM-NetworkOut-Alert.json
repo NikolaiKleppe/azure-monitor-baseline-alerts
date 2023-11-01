@@ -17,6 +17,22 @@
       "_deployed_by_amba": "True"
     },
     "parameters": {
+      "inclusionTagName": {
+        "type": "String",
+        "metadata": {
+            "displayName": "Inclusion Tag Name",
+            "description": "Name of the tag to use for including VMs in the scope of this policy."
+        },
+        "defaultValue": "enableMonitoring"
+      },
+      "resourceGraphIdentityId": {
+        "type": "String",
+        "defaultValue": "placeholder",
+        "metadata": {
+          "displayName": "User Assigned Identity ID",
+          "description": "The full resource ID of the User Assigned Identity to be used on the alerts. This is the central identity ID that is used for authentication to Azure Resource Graph."
+        }
+      },
       "alertResourceGroupName": {
         "type": "String",
         "metadata": {
@@ -224,6 +240,10 @@
           {
             "field": "type",
             "equals": "Microsoft.Compute/virtualMachines"
+          },
+          {
+            "field": "[[concat('tags[', parameters('inclusionTagName'), ']')]",
+            "equals": "true"
           }
         ]
       },
@@ -311,6 +331,12 @@
                   },
                   "networkInterfacesToInclude": {
                     "type": "array"
+                  },
+                  "resourceGraphIdentityId": {
+                    "type": "String"
+                  },
+                  "inclusionTagName": {
+                    "type": "String"
                   }
                 },
                 "variables": {},
@@ -356,6 +382,10 @@
                             "tags": {
                               "_deployed_by_amba": true
                             },
+                            "identity": {
+                              "type": "UserAssigned",
+                              "userAssignedIdentities": "[[createObject(parameters('resourceGraphIdentityId'), createObject())]"
+                            },
                             "properties": {
                               "displayName": "[[concat(subscription().displayName, '-VMHighNetworkOutAlert')]",
                               "description": "Log Alert for Virtual Machine NetworkOut",
@@ -372,7 +402,7 @@
                               "criteria": {
                                 "allOf": [
                                   {
-                                    "query": "InsightsMetrics| where Origin == \"vm.azm.ms\"| where Namespace == \"Network\" and Name == \"WriteBytesPerSecond\"| extend NetworkInterface=tostring(todynamic(Tags)[\"vm.azm.ms/networkDeviceId\"])|summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, NetworkInterface",
+                                    "query": "[[format('InsightsMetrics| where Origin == \"vm.azm.ms\"| where Namespace == \"Network\" and Name == \"WriteBytesPerSecond\"| extend NetworkInterface=tostring(todynamic(Tags)[\"vm.azm.ms/networkDeviceId\"])|summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, NetworkInterface| lookup (arg('''').Resources | where type == ''microsoft.compute/virtualmachines'' or type == ''microsoft.compute/virtualMachineScaleSets''| project _ResourceId=tolower(id), tags)on _ResourceId| where tostring(tags.{0}) =~ ''true''', parameters('inclusionTagName'))]",
                                     "metricMeasureColumn": "AggregatedValue",
                                     "threshold": "[[parameters('threshold')]",
                                     "operator": "[[parameters('operator')]",
@@ -444,6 +474,12 @@
                                 },
                                 "networkInterfacesToInclude": {
                                   "value": "[[parameters('networkInterfacesToInclude')]"
+                                },
+                                "resourceGraphIdentityId": {
+                                  "value": "[[parameters('resourceGraphIdentityId')]"
+                                },
+                                "inclusionTagName": {
+                                  "value": "[[parameters('inclusionTagName')]"
                                 }
                               }
                             }
@@ -516,6 +552,12 @@
                 },
                 "networkInterfacesToInclude": {
                   "value": "[[parameters('networkInterfacesToInclude')]"
+                },
+                "resourceGraphIdentityId": {
+                  "value": "[[parameters('resourceGraphIdentityId')]"
+                },
+                "inclusionTagName": {
+                  "value": "[[parameters('inclusionTagName')]"
                 }
               }
             }

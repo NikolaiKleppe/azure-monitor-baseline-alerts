@@ -15,21 +15,14 @@
     operator: LessThan
     threshold: 90
     criterionType: StaticThresholdCriterion
-    autoMitigate: false
   references:
-  - name: Monitor ExpressRoute Alerts
-    url: https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#alerts
-  - name: ExpressRoute KQL Queries
-    url: https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#sample-kusto-queries
+    - name: Monitor ExpressRoute Alerts
+      url: https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#alerts
+    - name: ExpressRoute KQL Queries
+      url: https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#sample-kusto-queries
   deployments:
-  - name: Deploy ExpressRoute Circuits ARP Availability Alert
+  - description: Policy to audit/deploy ExpressRoute Circuits ARP Availability Alert
     template: Deploy-ERCIR-ARPAvailability-Alert.json
-    type: Policy
-    tags:
-    - alz
-    properties:
-      scope: Resource
-      multiResource: false
 - name: BGP Availability
   description: BGP Availability from MSEE towards all peers.
   type: Metric
@@ -47,21 +40,14 @@
     operator: LessThan
     threshold: 90
     criterionType: StaticThresholdCriterion
-    autoMitigate: false
   references:
-  - name: Monitor ExpressRoute Alerts
-    url: https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#alerts
-  - name: ExpressRoute KQL Queries
-    url: https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#sample-kusto-queries
+    - name: Monitor ExpressRoute Alerts
+      url: https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#alerts
+    - name: ExpressRoute KQL Queries
+      url: https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#sample-kusto-queries
   deployments:
-  - name: Deploy ExpressRoute Circuits BGP Availability Alert
+  - description: Policy to audit/deploy ExpressRoute Circuits BGP Availability Alert
     template: Deploy-ERCIR-BGPAvailability-Alert.json
-    type: Policy
-    tags:
-    - alz
-    properties:
-      scope: Resource
-      multiResource: false
 - name: QOS Drop Bits In Per Second
   description: Ingress bits of data dropped per second
   type: Metric
@@ -82,21 +68,15 @@
     failingPeriods:
       numberOfEvaluationPeriods: 4
       minFailingPeriodsToAlert: 4
-    autoMitigate: false
   references:
-  - name: Monitor ExpressRoute Alerts
-    url: https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#alerts
-  - name: ExpressRoute KQL Queries
-    url: https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#sample-kusto-queries
+    - name: Monitor ExpressRoute Alerts
+      url: https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#alerts
+    - name: ExpressRoute KQL Queries
+      url: https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#sample-kusto-queries
   deployments:
-  - name: Deploy ExpressRoute Circuits QosDropBitsInPerSecond Alert
+  - description: Policy to audit/deploy ExpressRoute Circuits QosDropBitsInPerSecond
+      Alert
     template: Deploy-ERCIR-QOSDropsBitsIn-Alert.json
-    type: Policy
-    tags:
-    - alz
-    properties:
-      scope: Resource
-      multiResource: false
 - name: QOS Drop Bits Out Per Second
   description: Egress bits of data dropped per second
   type: Metric
@@ -117,21 +97,15 @@
     failingPeriods:
       numberOfEvaluationPeriods: 4
       minFailingPeriodsToAlert: 4
-    autoMitigate: false
   references:
-  - name: Monitor ExpressRoute Alerts
-    url: https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#alerts
-  - name: ExpressRoute KQL Queries
-    url: https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#sample-kusto-queries
+    - name: Monitor ExpressRoute Alerts
+      url: https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#alerts
+    - name: ExpressRoute KQL Queries
+      url: https://docs.microsoft.com/en-us/azure/expressroute/monitor-expressroute#sample-kusto-queries
   deployments:
-  - name: Deploy ExpressRoute Circuits QosDropBitsOutPerSecond Alert
+  - description: Policy to audit/deploy ExpressRoute Circuits QosDropBitsOutPerSecond
+      Alert
     template: Deploy-ERCIR-QOSDropsBitsOut-Alert.json
-    type: Policy
-    tags:
-    - alz
-    properties:
-      scope: Resource
-      multiResource: false
 - name: BgpAvailability
   description: BGP Availability from MSEE towards all peers.
   type: Metric
@@ -150,7 +124,6 @@
     operator: LessThan
     criterionType: StaticThresholdCriterion
     threshold: 100.0
-    autoMitigate: false
 - name: BitsInPerSecond
   description: Bits ingressing Azure per second
   type: Metric
@@ -169,7 +142,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 800000000.0
-    autoMitigate: false
 - name: BitsOutPerSecond
   description: Bits egressing Azure per second
   type: Metric
@@ -188,7 +160,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 800000000.0
-    autoMitigate: false
 - name: ArpAvailability
   description: ARP Availability from MSEE towards all peers.
   type: Metric
@@ -207,7 +178,6 @@
     operator: LessThan
     criterionType: StaticThresholdCriterion
     threshold: 100.0
-    autoMitigate: false
 - name: QosDropBitsInPerSecond
   description: Ingress bits of data dropped per second
   type: Metric
@@ -226,7 +196,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 0.0
-    autoMitigate: false
 - name: QosDropBitsOutPerSecond
   description: Egress bits of data dropped per second
   type: Metric
@@ -245,4 +214,3 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 0.0
-    autoMitigate: false

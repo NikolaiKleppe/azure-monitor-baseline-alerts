@@ -16,7 +16,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 10000.0
-    autoMitigate: false
 - name: TotalRequests
   description: The total number of requests received by the service.
   type: Metric
@@ -35,4 +34,3 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 2500.0
-    autoMitigate: false

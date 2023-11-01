@@ -16,16 +16,8 @@
   - name: Best practices for setting up service health alerts
     url: https://www.microsoft.com/videoplayer/embed/RE2OtUa
   deployments:
-  - name: Deploy Activity Log LA Workspace Delete Alert
+  - description: Policy to Deploy Activity Log LA Workspace Delete Alert
     template: Deploy-ActivityLog-LAWorkspace-Del.json
-    type: Policy
-    tags:
-    - alz
-    properties:
-      scope: Subscription
-      policyScope: managementGroup
-      documented: false
-      alertName: ActivityLAWorkspaceDelete
 - name: Activity Log LA Workspace Regenerate Key
   description: Activity Log Alert for LA Workspace Regenerate Key
   type: ActivityLog
@@ -44,16 +36,8 @@
   - name: Best practices for setting up service health alerts
     url: https://www.microsoft.com/videoplayer/embed/RE2OtUa
   deployments:
-  - name: Deploy Activity Log LA Workspace Regenerate Key Alert
+  - description: Policy to Deploy Activity Log LA Workspace Regenerate Key Alert
     template: Deploy-ActivityLog-LAWorkspace-KeyRegen.json
-    type: Policy
-    tags:
-    - alz
-    properties:
-      scope: Subscription
-      policyScope: managementGroup
-      documented: false
-      alertName: ActivityLAWorkspaceRegenKey
 - name: Average_% Free Space
   description: 'Average_% Free Space. Supported for: Linux, Windows. Part of [metric
     alerts for logs feature](https://aka.ms/am-log-to-metric).'
@@ -78,7 +62,6 @@
       values:
       - '*'
     threshold: 10.0
-    autoMitigate: false
 - name: Average_% Processor Time
   description: 'Average_% Processor Time. Supported for: Linux, Windows. Part of [metric
     alerts for logs feature](https://aka.ms/am-log-to-metric).'
@@ -103,7 +86,6 @@
       values:
       - '*'
     threshold: 90.0
-    autoMitigate: false
 - name: Average_% Used Memory
   description: 'Average_% Used Memory. Supported for: Linux. Part of [metric alerts
     for logs feature](https://aka.ms/am-log-to-metric).'
@@ -128,7 +110,6 @@
       values:
       - '*'
     threshold: 90.0
-    autoMitigate: false
 - name: Average_% Used Space
   description: 'Average_% Used Space. Supported for: Linux. Part of [metric alerts
     for logs feature](https://aka.ms/am-log-to-metric).'
@@ -153,7 +134,6 @@
       values:
       - '*'
     threshold: 90.0
-    autoMitigate: false
 - name: Average_% Committed Bytes In Use
   description: 'Average_% Committed Bytes In Use. Supported for: Windows. Part of
     [metric alerts for logs feature](https://aka.ms/am-log-to-metric).'
@@ -178,7 +158,6 @@
       values:
       - '*'
     threshold: 90.0
-    autoMitigate: false
 - name: Heartbeat
   description: 'Heartbeat. Supported for: Linux, Windows. Part of [metric alerts for
     logs feature](https://aka.ms/am-log-to-metric).'
@@ -203,7 +182,6 @@
       values:
       - '*'
     threshold: 0.0
-    autoMitigate: false
 - name: Average_Disk Transfers/sec
   description: 'Average_Disk Transfers/sec. Supported for: Linux, Windows. Part of
     [metric alerts for logs feature](https://aka.ms/am-log-to-metric).'
@@ -228,7 +206,6 @@
       values:
       - '*'
     threshold: 100.0
-    autoMitigate: false
 - name: Average_Available MBytes
   description: 'Average_Available MBytes. Supported for: Windows. Part of [metric
     alerts for logs feature](https://aka.ms/am-log-to-metric).'
@@ -253,7 +230,6 @@
       values:
       - '*'
     threshold: 512.0
-    autoMitigate: false
 - name: Average_Available MBytes Memory
   description: 'Average_Available MBytes Memory. Supported for: Linux. Part of [metric
     alerts for logs feature](https://aka.ms/am-log-to-metric).'
@@ -278,7 +254,6 @@
       values:
       - '*'
     threshold: 1.0
-    autoMitigate: false
 - name: Average_% Available Memory
   description: 'Average_% Available Memory. Supported for: Linux. Part of [metric
     alerts for logs feature](https://aka.ms/am-log-to-metric).'
@@ -303,7 +278,6 @@
       values:
       - '*'
     threshold: 10.0
-    autoMitigate: false
 - name: Average_Free Megabytes
   description: 'Average_Free Megabytes. Supported for: Linux, Windows. Part of [metric
     alerts for logs feature](https://aka.ms/am-log-to-metric).'
@@ -333,7 +307,6 @@
       - 'c:'
       - /
     threshold: 10240.0
-    autoMitigate: false
 - name: Average_% Used Inodes
   description: 'Average_% Used Inodes. Supported for: Linux. Part of [metric alerts
     for logs feature](https://aka.ms/am-log-to-metric).'
@@ -358,7 +331,6 @@
       values:
       - '*'
     threshold: 80.0
-    autoMitigate: false
 - name: Average_% Used Swap Space
   description: 'Average_% Used Swap Space. Supported for: Linux. Part of [metric alerts
     for logs feature](https://aka.ms/am-log-to-metric).'
@@ -391,7 +363,6 @@
       values:
       - '*'
     threshold: 50.0
-    autoMitigate: false
 - name: Average_Current Disk Queue Length
   description: 'Average_Current Disk Queue Length. Supported for: Windows. Part of
     [metric alerts for logs feature](https://aka.ms/am-log-to-metric).'
@@ -424,7 +395,6 @@
       values:
       - '*'
     threshold: 40.0
-    autoMitigate: false
 - name: Event
   description: 'Event. Supported for: Windows. Part of [metric alerts for logs feature](https://aka.ms/am-log-to-metric).'
   type: Metric
@@ -460,7 +430,6 @@
       values:
       - '1074'
     threshold: 0.0
-    autoMitigate: false
 - name: Average_Pages/sec
   description: 'Average_Pages/sec. Supported for: Linux, Windows. Part of [metric
     alerts for logs feature](https://aka.ms/am-log-to-metric).'
@@ -485,7 +454,6 @@
       values:
       - '*'
     threshold: 5000.0
-    autoMitigate: false
 - name: Average_Bytes Sent/sec
   description: 'Average_Bytes Sent/sec. Supported for: Windows. Part of [metric alerts
     for logs feature](https://aka.ms/am-log-to-metric).'
@@ -523,9 +491,8 @@
       - '*'
     failingPeriods:
       numberOfEvaluationPeriods: 4
-      minFailingPeriodsToAlert: minFailingPeriodsToAlert
+      minFailingPeroidsToAlert: minFailingPeroidsToAlert
     alertSensitivity: Medium
-    autoMitigate: false
 - name: Average_Bytes Received/sec
   description: 'Average_Bytes Received/sec. Supported for: Windows. Part of [metric
     alerts for logs feature](https://aka.ms/am-log-to-metric).'
@@ -563,9 +530,8 @@
       - '*'
     failingPeriods:
       numberOfEvaluationPeriods: 4
-      minFailingPeriodsToAlert: minFailingPeriodsToAlert
+      minFailingPeroidsToAlert: minFailingPeroidsToAlert
     alertSensitivity: Medium
-    autoMitigate: false
 - name: Average_Total Bytes Transmitted
   description: 'Average_Total Bytes Transmitted. Supported for: Linux. Part of [metric
     alerts for logs feature](https://aka.ms/am-log-to-metric).'
@@ -603,9 +569,8 @@
       - '*'
     failingPeriods:
       numberOfEvaluationPeriods: 4
-      minFailingPeriodsToAlert: minFailingPeriodsToAlert
+      minFailingPeroidsToAlert: minFailingPeroidsToAlert
     alertSensitivity: Medium
-    autoMitigate: false
 - name: Average_Total Bytes Received
   description: 'Average_Total Bytes Received. Supported for: Linux. Part of [metric
     alerts for logs feature](https://aka.ms/am-log-to-metric).'
@@ -643,9 +608,8 @@
       - '*'
     failingPeriods:
       numberOfEvaluationPeriods: 4
-      minFailingPeriodsToAlert: minFailingPeriodsToAlert
+      minFailingPeroidsToAlert: minFailingPeroidsToAlert
     alertSensitivity: Medium
-    autoMitigate: false
 - name: Average_% IO Wait Time
   description: 'Average_% IO Wait Time. Supported for: Linux. Part of [metric alerts
     for logs feature](https://aka.ms/am-log-to-metric).'
@@ -670,7 +634,6 @@
       values:
       - vm-pm-public-jump-001
     threshold: 75.0
-    autoMitigate: false
 - name: Average_% User Time
   description: 'Average_% User Time. Supported for: Linux, Windows. Part of [metric
     alerts for logs feature](https://aka.ms/am-log-to-metric).'
@@ -695,4 +658,3 @@
       values:
       - vm-pm-public-jump-001
     threshold: 90.0
-    autoMitigate: false

@@ -38,14 +38,17 @@
     "telemetryOptOut": {
       "value": "No"
     },
+    "resourceGraphIdentityScopeMG": {
+      "value": "contoso-resourcegraph"
+    },
     "policyAssignmentParametersCommon": {
       "value": {
         "ALZMonitorResourceGroupName": {
-          "value": "rg-amba-monitoring-001"
+          "value": "rg-amba-monitor"
         },
         "ALZMonitorResourceGroupTags": {
           "value": {
-            "Project": "amba-monitoring"
+            "Project": "alz-monitor"
           }
         },
         "ALZMonitorResourceGroupLocation": {
@@ -61,32 +64,17 @@
         "ResHlthUnhealthyAlertState": {
           "value": "true"
         },
-        "ResHlthUnhealthyPolicyEffect": {
-          "value": "deployIfNotExists"
-        },
         "SvcHlthAdvisoryAlertState": {
           "value": "true"
-        },
-        "serviceHealthAdvisoryPolicyEffect": {
-          "value": "deployIfNotExists"
         },
         "SvcHlthIncidentAlertState": {
           "value": "true"
         },
-        "serviceHealthIncidentPolicyEffect": {
-          "value": "deployIfNotExists"
-        },
         "SvcHlthMaintenanceAlertState": {
           "value": "true"
         },
-        "serviceHealthMaintenancePolicyEffect": {
-          "value": "deployIfNotExists"
-        },
         "svcHlthSecAdvisoryAlertState": {
           "value": "true"
-        },
-        "serviceHealthSecurityPolicyEffect": {
-          "value": "deployIfNotExists"
         }
       }
     },
@@ -1776,6 +1764,9 @@
         },
         "LBUsedSNATPortsAlertState": {
           "value": "true"
+        },
+        "resourceGraphIdentityId": {
+          "value": "id"
         }
       }
     },

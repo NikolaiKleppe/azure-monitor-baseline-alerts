@@ -16,7 +16,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 3958241859993.6
-    autoMitigate: false
 - name: VolumeConsumedSizePercentage
   description: The percentage of the volume consumed including snapshots.
   type: Metric
@@ -35,7 +34,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 80.0
-    autoMitigate: false
 - name: VolumeLogicalSize
   description: Logical size of the volume (used bytes)
   type: Metric
@@ -54,7 +52,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 85899345920.0
-    autoMitigate: false
 - name: AverageReadLatency
   description: Average read latency in milliseconds per operation
   type: Metric
@@ -73,7 +70,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 20.0
-    autoMitigate: false
 - name: AverageWriteLatency
   description: Average write latency in milliseconds per operation
   type: Metric
@@ -92,7 +88,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 20.0
-    autoMitigate: false
 - name: VolumeAllocatedSize
   description: The provisioned size of a volume
   type: Metric
@@ -111,7 +106,6 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 107374182400.0
-    autoMitigate: false
 - name: CbsVolumeOperationComplete
   description: Did the last volume backup or restore operation complete successfully?
     1 if yes, 0 if no.
@@ -131,4 +125,3 @@
     operator: LessThan
     criterionType: StaticThresholdCriterion
     threshold: 1.0
-    autoMitigate: false

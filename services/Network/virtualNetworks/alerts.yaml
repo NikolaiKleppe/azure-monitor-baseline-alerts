@@ -15,19 +15,12 @@
     operator: GreaterThan
     threshold: 0
     criterionType: StaticThresholdCriterion
-    autoMitigate: false
   references:
   - name: Supported metrics for Microsoft.Network/virtualNetworks
     url: https://learn.microsoft.com/en-us/azure/azure-monitor/reference/supported-metrics/microsoft-network-virtualnetworks-metrics
   deployments:
-  - name: Deploy VNet DDoS Attack Alert
+  - description: Policy to audit/deploy Virtual Network DDoS Attack Alert
     template: Deploy-VNET-DDOSAttack-Alert.json
-    type: Policy
-    tags:
-    - alz
-    properties:
-      scope: Resource
-      multiResource: false
 - name: IfUnderDDoSAttack
   description: Under DDoS attack or not
   type: Metric
@@ -46,4 +39,3 @@
     operator: GreaterThan
     criterionType: StaticThresholdCriterion
     threshold: 1.0
-    autoMitigate: false
