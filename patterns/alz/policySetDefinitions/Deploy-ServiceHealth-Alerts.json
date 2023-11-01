@@ -96,6 +96,144 @@
           "displayName": "Monitor Disable",
           "description": "Disable the Monitor"
         }
+      },
+      "ResourceHealthLogAlertSeverity": {
+        "type": "String",
+        "defaultValue": "1",
+        "allowedValues": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "metadata": {
+          "displayName": "Resource Health Alert Severity",
+          "description": "Severity of the alert for Resource Health"
+        }
+      },
+      "ResourceHealthLogWindowSize": {
+        "type": "string",
+        "defaultValue": "PT15M",
+        "allowedValues": [
+          "PT1M",
+          "PT5M",
+          "PT15M",
+          "PT30M",
+          "PT1H",
+          "PT6H",
+          "PT12H",
+          "P1D"
+        ],
+        "metadata": {
+          "displayName": "Resource Health Window Size",
+          "description": "Window size for the alert"
+        }
+      },
+      "ResourceHealthLogEvaluationFrequency": {
+        "type": "string",
+        "defaultValue": "PT5M",
+        "allowedValues": [
+          "PT1M",
+          "PT5M",
+          "PT15M",
+          "PT30M",
+          "PT1H"
+        ],
+        "metadata": {
+          "displayName": "Resource Health Evaluation Frequency",
+          "description": "Evaluation frequency for the alert"
+        }
+      },
+      "ResourceHealthLogAutoMitigate": {
+        "type": "string",
+        "defaultValue": "true",
+        "metadata": {
+          "displayName": "Resource Health Auto Mitigate",
+          "description": "Auto Mitigate for the alert"
+        }
+      },
+      "ResourceHealthLogAutoResolve": {
+        "type": "string",
+        "defaultValue": "true",
+        "metadata": {
+          "displayName": "Resource Health Auto Resolve",
+          "description": "Auto Resolve for the alert"
+        }
+      },
+      "ResourceHealthLogAutoResolveTime": {
+        "type": "string",
+        "defaultValue": "00:10:00",
+        "metadata": {
+          "displayName": "Resource Health Auto Resolve Time",
+          "description": "Auto Resolve Time for the alert"
+        }
+      },
+      "ResourceHealthLogPolicyEffect": {
+        "type": "string",
+        "defaultValue": "deployIfNotExists",
+        "allowedValues": [
+          "deployIfNotExists",
+          "disabled"
+        ],
+        "metadata": {
+          "displayName": "Resource Health Policy Effect",
+          "description": "Policy effect for the alert, deployIfNotExists will deploy the alert if it does not exist"
+        }
+      },
+      "ResourceHealthLogAlertState": {
+        "type": "string",
+        "defaultValue": "true",
+        "metadata": {
+          "displayName": "Resource Health Alert State",
+          "description": "Alert state for the alert"
+        }
+      },
+      "ResourceHealthLogThreshold": {
+        "type": "string",
+        "defaultValue": "0",
+        "metadata": {
+          "displayName": "Resource Health Threshold",
+          "description": "Threshold for the alert"
+        }
+      },
+      "ResourceHealthLogOperator": {
+        "type": "string",
+        "defaultValue": "GreaterThan",
+        "allowedValues": [
+          "Equals",
+          "GreaterThan",
+          "GreaterThanOrEqual",
+          "LessThan",
+          "LessThanOrEqual"
+        ],
+        "metadata": {
+          "displayName": "Resource Health Operator",
+          "description": "Operator for the alert"
+        }
+      },
+      "ResourceHealthLogTimeAggregation": {
+        "type": "string",
+        "defaultValue": "Count",
+        "allowedValues": [
+          "Average",
+          "Count",
+          "Maximum",
+          "Minimum",
+          "Total"
+        ],
+        "metadata": {
+          "displayName": "Resource Health Time Aggregation",
+          "description": "Time Aggregation for the alert"
+        }
+      },
+      "resourceGraphIdentityId": {
+        "type": "string",
+        "defaultValue": "placeholder",
+        "metadata": {
+          "displayName": "User Assigned Identity ID",
+          "description": "The full resource ID of the User Assigned Identity to be used on the alerts. This is the central identity ID that is used for authentication to Azure Resource Graph."
+        }
       }
     },
     "policyDefinitions": [
@@ -221,7 +359,58 @@
             "value": "[[parameters('MonitorDisable')]"
           }
         }
-      }
+      },
+      {
+        "policyDefinitionReferenceId": "ALZ_ResourceHealthLog",
+        "policyDefinitionId": "[concat('/providers/Microsoft.Management/managementGroups/',managementGroup().name, '/providers/Microsoft.Authorization/policyDefinitions/Deploy_logQuery_ResourceHealth_Unhealthy_Alert')]",
+        "parameters": {
+          "alertResourceGroupName": {
+            "value": "[[parameters('ALZMonitorResourceGroupName')]"
+          },
+          "alertResourceGroupTags": {
+            "value": "[[parameters('ALZMonitorResourceGroupTags')]"
+          },
+          "alertResourceGroupLocation": {
+            "value": "[[parameters('ALZMonitorResourceGroupLocation')]"
+          },
+          "severity": {
+            "value": "[[parameters('ResourceHealthLogAlertSeverity')]"
+          },
+          "windowSize": {
+            "value": "[[parameters('ResourceHealthLogWindowSize')]"
+          },
+          "evaluationFrequency": {
+            "value": "[[parameters('ResourceHealthLogEvaluationFrequency')]"
+          },
+          "autoMitigate": {
+            "value": "[[parameters('ResourceHealthLogAutoMitigate')]"
+          },
+          "autoResolve": {
+            "value": "[[parameters('ResourceHealthLogAutoResolve')]"
+          },
+          "autoResolveTime": {
+            "value": "[[parameters('ResourceHealthLogAutoResolveTime')]"
+          },
+          "effect": {
+            "value": "[[parameters('ResourceHealthLogPolicyEffect')]"
+          },
+          "enabled": {
+            "value": "[[parameters('ResourceHealthLogAlertState')]"
+          },
+          "threshold": {
+            "value": "[[parameters('ResourceHealthLogThreshold')]"
+          },
+          "operator": {
+            "value": "[[parameters('ResourceHealthLogOperator')]"
+          },
+          "timeAggregation": {
+            "value": "[[parameters('ResourceHealthLogTimeAggregation')]"
+          },
+          "resourceGraphIdentityId": {
+            "value": "[[parameters('resourceGraphIdentityId')]"
+          }
+        }
+      },
     ],
     "policyType": "Custom",
     "policyDefinitionGroups": null
