@@ -17,6 +17,14 @@
       "_deployed_by_amba": "True"
     },
     "parameters": {
+      "inclusionTagName": {
+        "type": "String",
+        "metadata": {
+            "displayName": "Inclusion Tag Name",
+            "description": "Name of the tag to use for including VMs in the scope of this policy."
+        },
+        "defaultValue": "enableMonitoring"
+      },
       "alertResourceGroupName": {
         "type": "String",
         "metadata": {
@@ -196,6 +204,13 @@
           "disabled"
         ],
         "defaultValue": "deployIfNotExists"
+      },
+      "resourceGraphIdentityId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "User Assigned Identity ID",
+          "description": "The full resource ID of the User Assigned Identity to be used on the alerts. This is the central identity ID that is used for authentication to Azure Resource Graph."
+        }
       }
     },
     "policyRule": {
@@ -204,6 +219,10 @@
           {
             "field": "type",
             "equals": "Microsoft.Compute/virtualMachines"
+          },
+          {
+            "field": "[[concat('tags[', parameters('inclusionTagName'), ']')]",
+            "equals": "true"
           }
         ]
       },
@@ -285,6 +304,12 @@
                   },
                   "evaluationPeriods": {
                     "type": "String"
+                  },
+                  "resourceGraphIdentityId": {
+                    "type": "String"
+                  },
+                  "inclusionTagName": {
+                    "type": "String"
                   }
                 },
                 "variables": {},
@@ -330,6 +355,10 @@
                             "tags": {
                               "_deployed_by_amba": true
                             },
+                            "identity": {
+                              "type": "UserAssigned",
+                              "userAssignedIdentities": "[[createObject(parameters('resourceGraphIdentityId'), createObject())]"
+                            },
                             "properties": {
                               "displayName": "[[concat(subscription().displayName, '-VMHeartBeatAlert')]",
                               "description": "Log Alert for Virtual Machine Heartbeat",
@@ -346,7 +375,7 @@
                               "criteria": {
                                 "allOf": [
                                   {
-                                    "query": "Heartbeat| summarize TimeGenerated=max(TimeGenerated) by Computer, _ResourceId| extend Duration = datetime_diff('minute',now(),TimeGenerated)| summarize AggregatedValue = min(Duration) by Computer, bin(TimeGenerated,5m), _ResourceId",
+                                    "query": "[[format('Heartbeat| summarize TimeGenerated=max(TimeGenerated) by Computer, _ResourceId| extend Duration = datetime_diff(''minute'',now(),TimeGenerated)| summarize AggregatedValue = min(Duration) by Computer, bin(TimeGenerated,5m), _ResourceId| lookup (arg('''').Resources | where type == ''microsoft.compute/virtualmachines'' or type == ''microsoft.compute/virtualMachineScaleSets''| project _ResourceId=tolower(id), tags)on _ResourceId| where tostring(tags.{0}) =~ ''true''', parameters('inclusionTagName'))]",
                                     "metricMeasureColumn": "AggregatedValue",
                                     "threshold": "[[parameters('threshold')]",
                                     "operator": "[[parameters('operator')]",
@@ -409,6 +438,12 @@
                                 },
                                 "evaluationPeriods": {
                                   "value": "[[parameters('evaluationPeriods')]"
+                                },
+                                "resourceGraphIdentityId": {
+                                  "value": "[[parameters('resourceGraphIdentityId')]"
+                                },
+                                "inclusionTagName": {
+                                  "value": "[[parameters('inclusionTagName')]"
                                 }
                               }
                             }
@@ -475,6 +510,12 @@
                 },
                 "evaluationPeriods": {
                   "value": "[[parameters('evaluationPeriods')]"
+                },
+                "resourceGraphIdentityId": {
+                  "value": "[[parameters('resourceGraphIdentityId')]"
+                },
+                "inclusionTagName": {
+                  "value": "[[parameters('inclusionTagName')]"
                 }
               }
             }

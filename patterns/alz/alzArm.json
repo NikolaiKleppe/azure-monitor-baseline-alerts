@@ -143,6 +143,12 @@
         "policyAssignmentParametersServiceHealth": {
             "type": "object",
             "defaultValue": {}
+        },
+        "resourceGraphIdentityScopeMG": {
+            "type": "string",
+            "metadata": {
+                "description": "The ID of the Management Group containing the subscription that hosts the User Assigned Identity used for Resource Graph authentication. This is (currently) needed to set the role assignment on the user assigned identity in the central subscription. See wiki for details."
+            }
         }
     },
     "variables": {
@@ -215,7 +221,7 @@
             // One of Azure's untold stories.....
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2020-10-01",
-            "name": "[concat('preparingToLaunch', copyIndex())]",
+            "name": "[concat('ambaPreparingToLaunch', copyIndex())]",
             "location": "[deployment().location]",
             "scope": "[concat('Microsoft.Management/managementGroups/', parameters('enterpriseScaleCompanyPrefix'))]",
             "dependsOn": [
@@ -225,7 +231,7 @@
                 "batchSize": 1,
                 "count": "[parameters('delayCount')]",
                 "mode": "Serial",
-                "name": "policyCompletion"
+                "name": "ambaPolicyCompletion"
             },
             "properties": {
                 "mode": "Incremental",
@@ -247,7 +253,7 @@
             "scope": "[concat('Microsoft.Management/managementGroups/', parameters('connectivityManagementGroup'))]",
             "location": "[deployment().location]",
             "dependsOn": [
-                "policyCompletion"
+                "ambaPolicyCompletion"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -274,7 +280,7 @@
             "scope": "[concat('Microsoft.Management/managementGroups/', parameters('identityManagementGroup'))]",
             "location": "[deployment().location]",
             "dependsOn": [
-                "policyCompletion"
+                "ambaPolicyCompletion"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -301,7 +307,7 @@
             "scope": "[concat('Microsoft.Management/managementGroups/', parameters('LandingZoneManagementGroup'))]",
             "location": "[deployment().location]",
             "dependsOn": [
-                "policyCompletion"
+                "ambaPolicyCompletion"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -315,6 +321,9 @@
                     },
                     "policyAssignmentParameters": {
                         "value": "[variables('policyAssignmentParametersLandingZone')]"
+                    },
+                    "resourceGraphIdentityScopeMG": {
+                        "value": "[parameters('resourceGraphIdentityScopeMG')]"
                     }
                 }
             }
@@ -328,7 +337,7 @@
             "scope": "[concat('Microsoft.Management/managementGroups/', parameters('managementManagementGroup'))]",
             "location": "[deployment().location]",
             "dependsOn": [
-                "policyCompletion"
+                "ambaPolicyCompletion"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -355,7 +364,7 @@
             "scope": "[concat('Microsoft.Management/managementGroups/', parameters('enterpriseScaleCompanyPrefix'))]",
             "location": "[deployment().location]",
             "dependsOn": [
-                "policyCompletion"
+                "ambaPolicyCompletion"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -369,6 +378,9 @@
                     },
                     "policyAssignmentParameters": {
                         "value": "[variables('policyAssignmentParametersServiceHealth')]"
+                    },
+                    "resourceGraphIdentityScopeMG": {
+                        "value": "[parameters('resourceGraphIdentityScopeMG')]"
                     }
                 }
             }
