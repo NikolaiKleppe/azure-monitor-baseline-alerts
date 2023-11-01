@@ -17,22 +17,6 @@
       "_deployed_by_amba": "True"
     },
     "parameters": {
-      "inclusionTagName": {
-        "type": "String",
-        "metadata": {
-            "displayName": "Inclusion Tag Name",
-            "description": "Name of the tag to use for including VMs in the scope of this policy."
-        },
-        "defaultValue": "enableMonitoring"
-      },
-      "resourceGraphIdentityId": {
-        "type": "String",
-        "defaultValue": "placeholder",
-        "metadata": {
-          "displayName": "User Assigned Identity ID",
-          "description": "The full resource ID of the User Assigned Identity to be used on the alerts. This is the central identity ID that is used for authentication to Azure Resource Graph."
-        }
-      },
       "alertResourceGroupName": {
         "type": "String",
         "metadata": {
@@ -230,10 +214,6 @@
           {
             "field": "type",
             "equals": "Microsoft.Compute/virtualMachines"
-          },
-          {
-            "field": "[[concat('tags[', parameters('inclusionTagName'), ']')]",
-            "equals": "true"
           }
         ]
       },
@@ -318,12 +298,6 @@
                   },
                   "disksToInclude": {
                     "type": "array"
-                  },
-                  "resourceGraphIdentityId": {
-                    "type": "String"
-                  },
-                  "inclusionTagName": {
-                    "type": "String"
                   }
                 },
                 "variables": {},
@@ -369,10 +343,6 @@
                             "tags": {
                               "_deployed_by_amba": true
                             },
-                            "identity": {
-                              "type": "UserAssigned",
-                              "userAssignedIdentities": "[[createObject(parameters('resourceGraphIdentityId'), createObject())]"
-                            },
                             "properties": {
                               "displayName": "[[concat(subscription().displayName, '-VMLowdataDiskSpaceAlert')]",
                               "description": "Log Alert for Virtual Machine dataDiskSpace",
@@ -389,7 +359,7 @@
                               "criteria": {
                                 "allOf": [
                                   {
-                                    "query": "[[format('InsightsMetrics| where Origin == \"vm.azm.ms\"| where Namespace == \"LogicalDisk\" and Name == \"FreeSpacePercentage\"| extend Disk=tostring(todynamic(Tags)[\"vm.azm.ms/mountId\"])|where Disk !in (''C:'',''/'')| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, Disk| lookup (arg('''').Resources | where type == ''microsoft.compute/virtualmachines'' or type == ''microsoft.compute/virtualMachineScaleSets''| project _ResourceId=tolower(id), tags)on _ResourceId| where tostring(tags.{0}) =~ ''true''', parameters('inclusionTagName'))]",
+                                    "query": "InsightsMetrics| where Origin == \"vm.azm.ms\"| where Namespace == \"LogicalDisk\" and Name == \"FreeSpacePercentage\"| extend Disk=tostring(todynamic(Tags)[\"vm.azm.ms/mountId\"])|where Disk !in ('C:','/')| summarize AggregatedValue = avg(Val) by bin(TimeGenerated, 15m), Computer, _ResourceId, Disk",
                                     "metricMeasureColumn": "AggregatedValue",
                                     "threshold": "[[parameters('threshold')]",
                                     "operator": "[[parameters('operator')]",
@@ -460,12 +430,6 @@
                                 },
                                 "disksToInclude": {
                                   "value": "[[parameters('disksToInclude')]"
-                                },
-                                "resourceGraphIdentityId": {
-                                  "value": "[[parameters('resourceGraphIdentityId')]"
-                                },
-                                "inclusionTagName": {
-                                  "value": "[[parameters('inclusionTagName')]"
                                 }
                               }
                             }
@@ -535,12 +499,6 @@
                 },
                 "disksToInclude": {
                   "value": "[[parameters('disksToInclude')]"
-                },
-                "resourceGraphIdentityId": {
-                  "value": "[[parameters('resourceGraphIdentityId')]"
-                },
-                "inclusionTagName": {
-                  "value": "[[parameters('inclusionTagName')]"
                 }
               }
             }

@@ -1,10 +1,6 @@
 - name: Port Bits In Per Second
   description: Metric Alert for ER Direct Connection BitsInPerSecond
   type: Metric
-  verified: False
-  visible: True
-  tags:
-  - alz
   properties:
     metricName: PortBitsInPerSecond
     metricNamespace: Microsoft.Network/expressRoutePorts
@@ -21,10 +17,6 @@
 - name: Port Bits Out Per Second
   description: Metric Alert for ER Direct Connection BitsOutPerSecond
   type: Metric
-  verified: False
-  visible: True
-  tags:
-  - alz
   properties:
     metricName: PortBitsOutPerSecond
     metricNamespace: Microsoft.Network/expressRoutePorts
@@ -41,10 +33,6 @@
 - name: Line Protocol
   description: Metric Alert for ER Direct Connection LineProtocol
   type: Metric
-  verified: False
-  visible: True
-  tags:
-  - alz
   properties:
     metricName: LineProtocol
     metricNamespace: Microsoft.Network/expressRoutePorts
@@ -61,10 +49,6 @@
 - name: Rx Light Level High
   description: Metric Alert for ER Direct Connection RxLightLevel High
   type: Metric
-  verified: False
-  visible: True
-  tags:
-  - alz
   properties:
     metricName: RxLightLevel
     metricNamespace: Microsoft.Network/expressRoutePorts
@@ -81,10 +65,6 @@
 - name: Rx Light Level Low
   description: Metric Alert for ER Direct Connection RxLightLevel Low
   type: Metric
-  verified: False
-  visible: True
-  tags:
-  - alz
   properties:
     metricName: RxLightLevel
     metricNamespace: Microsoft.Network/expressRoutePorts
@@ -101,10 +81,6 @@
 - name: Tx Light Level High
   description: Metric Alert for ER Direct Connection TxLightLevel High
   type: Metric
-  verified: False
-  visible: True
-  tags:
-  - alz
   properties:
     metricName: TxLightLevel
     metricNamespace: Microsoft.Network/expressRoutePorts
@@ -121,10 +97,6 @@
 - name: Tx Light Level Low
   description: Metric Alert for ER Direct Connection TxLightLevel Low
   type: Metric
-  verified: False
-  visible: True
-  tags:
-  - alz
   properties:
     metricName: TxLightLevel
     metricNamespace: Microsoft.Network/expressRoutePorts

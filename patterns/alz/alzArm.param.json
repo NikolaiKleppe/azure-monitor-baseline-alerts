@@ -38,9 +38,6 @@
     "telemetryOptOut": {
       "value": "No"
     },
-    "resourceGraphIdentityScopeMG": {
-      "value": "contoso-resourcegraph"
-    },
     "policyAssignmentParametersCommon": {
       "value": {
         "ALZMonitorResourceGroupName": {
@@ -1764,9 +1761,6 @@
         },
         "LBUsedSNATPortsAlertState": {
           "value": "true"
-        },
-        "resourceGraphIdentityId": {
-          "value": "id"
         }
       }
     },
